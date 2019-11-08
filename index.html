@@ -5,6 +5,10 @@
             <link rel="stylesheet" type="text/css" href="../Assests/stylesheet.css">
             <link href="https://fonts.googleapis.com/css?family=Biryani:800" rel="stylesheet">
 				<style>
+					.center{
+						display: block;
+    						text-align: -webkit-center;
+					}
 					body {
 						background-image: url("signup.jpg");
 						background-repeat:no-repeat;
@@ -37,7 +41,33 @@
 						margin-right:auto;
 						width:960px;
 					}
-				</style>
+					
+					/* checkbox design */
+					input[type='checkbox'] {
+						width:15px;
+						height:15px; 
+						vertical-align: middle;
+						position: relative;
+						bottom: 1px;
+					}
+			       </style>
+                               <script type="text/javascript">
+                               function enabletext()
+                               {
+                               		var checkBox = document.getElementById("myCheck");
+                                        if(checkBox.checked  == true)
+                                        {
+						var email = document.getElementById("myEmail");
+						email.style.display = "block";
+
+
+
+                                        } else {
+						var email = document.getElementById("myEmail");
+						email.style.display="none";
+                                        }
+				}
+                               </script>
         </head>
 		<body>		
             <div id="view">
@@ -55,6 +85,14 @@
 								<input type="password" name="pass" placeholder="Enter your password" required><br><br>
 								Confirm :		
 								<input type="password" name="confirmpass" placeholder="Re-enter password" required><br><br>
+							
+								<div style="padding-right: 135px">
+								Admin : 
+								<input type="checkbox" name="admin" value="Admin" id="myCheck" onclick="enabletext()"> <br><br>
+								</div>
+								<div style="padding-left: 20px"> 
+								<input type="input" name="email" class="email" id="myEmail" style="display: none" placeholder="Enter your email" required><br><br>
+								</div>
 								<input type="submit" value="Submit">
 								<br><br><br>
 							</center> 
