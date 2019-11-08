@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" class="login-register-bg"> 
+    <title>Login</title>
+        <head>
+            <link rel="stylesheet" type="text/css" href="../Assests/stylesheet.css">
+            <link href="https://fonts.googleapis.com/css?family=Biryani:800" rel="stylesheet">
+				<style>
+					body {
+						background-image: url("signup.jpg");
+						background-repeat:no-repeat;
+						background-position: fixed;
+						background-size:cover;
+						zoom:150%;
+					}	
+					
+					hr{
+						overflow: visible; 
+						height: 30px;
+						border-style: solid;
+						border-color: black;
+						border-width: 1px 0 0 0;
+						border-radius: 20px;
+					}
+					hr:before { 
+						display: block;
+						content: "";
+						height: 30px;
+						margin-top: -31px;
+						border-style: solid;
+						border-color: black;
+						border-width: 0 0 1px 0;
+						border-radius: 20px;
+					}
+					
+					#wrapper {
+						margin-left:auto;
+						margin-right:auto;
+						width:960px;
+					}
+				</style>
+        </head>
+		<body>		
+            <div id="view">
+				<div id="login">
+					<form action="../Scripts/login.php" method="post">
+						<p style = "font-family:georgia,garamond,serif;font-size:16px;font-style:italic;">
+							<center>
+								<h1 class="title">Adelphi University Ticket System</h1>
+								<hr>
+								<h2 class="title" style = "font-size:24px">Login</h2> 
+								
+								Username:		 
+								<input type="text" name="user" class="usernamelogin" placeholder="Enter your username" required><br><br>
+								Password: 		 
+								<input type="password" name="pass" placeholder="Enter your password" required><br><br>
+								<input type="submit" value="Submit">
+								<br><br><br>
+							</center> 
+						</p>
+					</form>
+				</div>	
+            </div>
+		</body>
+</html>
+
