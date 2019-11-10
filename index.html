@@ -59,20 +59,31 @@
                                         {
 						var email = document.getElementById("myEmail");
 						email.style.display = "block";
-
+						email.required = true;
 
 
                                         } else {
 						var email = document.getElementById("myEmail");
 						email.style.display="none";
+						email.required = false;
                                         }
+				}
+
+
+				function check()
+				{
+					if (document.getElementById('confirmpass').value !== document.getElementById('pass').value) {
+         					document.getElementById('confirmpass').setCustomValidity("Passwords Don't Match");
+					} else {
+						document.getElementById('confirmpass').setCustomValidity('');
+        				}
 				}
                                </script>
         </head>
 		<body>		
             <div id="view">
 				<div id="login">
-					<form action="../Scripts/register.php" method="post">
+					<form  action="Scripts/register.php" method="post">
 						<p style = "font-family:georgia,garamond,serif;font-size:16px;font-style:italic;">
 							<center>
 								<h1 class="title">Adelphi University Ticket System</h1>
@@ -82,16 +93,16 @@
 								Username:		 
 								<input type="text" name="user" class="usernamelogin" placeholder="Enter your username" required><br><br>
 								Password:		 
-								<input type="password" name="pass" placeholder="Enter your password" required><br><br>
+								<input type="password" name="pass" placeholder="Enter your password" id="pass" required><br><br>
 								Confirm :		
-								<input type="password" name="confirmpass" placeholder="Re-enter password" required><br><br>
+								<input type="password" name="confirmpass" placeholder="Re-enter password" id="confirmpass" oninput="check()" required><br><br>
 							
 								<div style="padding-right: 135px">
 								Admin : 
 								<input type="checkbox" name="admin" value="Admin" id="myCheck" onclick="enabletext()"> <br><br>
 								</div>
 								<div style="padding-left: 20px"> 
-								<input type="input" name="email" class="email" id="myEmail" style="display: none" placeholder="Enter your email" required><br><br>
+								<input type="input" name="email" class="email" id="myEmail" style="display: none" placeholder="Enter your email"><br><br>
 								</div>
 								<input type="submit" value="Submit">
 								<br><br><br>
