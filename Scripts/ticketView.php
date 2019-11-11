@@ -114,6 +114,9 @@
 					.dropdown:hover .dropbtn {
 					  background-color: #A9A9A9;
 
+					 /* --------------------------- */
+					 /* search bar for ticket pages */
+					 /* --------------------------- */
 				</style>
         </head>
 		<body>		
@@ -140,6 +143,8 @@
 									<div class="column">
 										<table style="width:70%">
 										<h2 class="title" style = "font-size:20px">Previous tickets.</h2> 
+										<input style="width: 300px;" type="text" name="search" class="ticketsearch" placeholder="Search...">
+										<input type="submit" value="&#x1F50D"> <br> <br>
 										<table>
 										<?php
 									                session_start();
@@ -161,21 +166,37 @@
                										while ($row = pg_fetch_row($result))
                 									{
                         									$count = count($row);
-                        									for($x = 0; $x < $count; $x++)
+												for($x = 0; $x < $count; $x++)
                         									{
 													$columnName = pg_field_name($result, $x);
 												?>
 													<th><?php echo "$columnName"; ?></th>
-													<td><?php echo "$row[$x]"; ?></td>
+													<?php
+													if($x==$count-1)
+													{
+														?></tr><?php
+													}
+													?>
 												<?php
                         									}
+												for($x = 0; $x < $count; $x++)
+												{
+													?>
+													<td><?php echo "$row[$x]"; ?></td>
+													<?php
+													if($x==$count-1)
+                                                                                                        { 
+                                                                                                                ?></tr><?php
+                                                                                                        }
+                                                                                                    
+												}
                 									}
 										?>
 										</table>
 									</div>
 								
 									<div class="vl"></div>
-								
+									
 									<div class="column"> 
 										<h3 class="title" style = "font-size:20px">Create a new ticket.</h3> 
 										<div align="left" style="padding-left: 100px">
