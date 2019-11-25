@@ -43,14 +43,29 @@
 		$successful = false;
 		if($result[0] == null)
 		{
-			$succ = false;
-			echo "Error";
 			//header('Location: ../index.html');
 			//figure out where we want to go
+			$st = $dbh->prepare("
+                	SELECT adminid FROM adminm WHERE username = ? AND password = ? LIMIT 1");
+                	$st->bindParam(1, $username);
+                	$st->bindParam(2, $password);
+                	$st->execute();
+                	$result = $st->fetch();
+                	$_SESSION['userid'] = $result[0];
+                	$successful = false;
+                	if($result[0] == null)
+                	{
+                	        echo "Error";
+                	        //header('Location: ../index.html');
+                	        //figure out where we want to go
+                	}
+			else	{
+				echo "Worked";
+				//header('Location: adminTicketPage');
+			}
 		}
 		else
 		{
-			$succ = true;
 			header('Location: ticketView.php');
 		}
 	}
