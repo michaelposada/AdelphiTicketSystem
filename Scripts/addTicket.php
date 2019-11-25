@@ -62,23 +62,6 @@
 
 			}
 
-                      //  $st->execute();
-                       // $result = $st->fetch();
-                        //$_SESSION['userid'] = $result[0];
-                                //$successful = false;
-                       // if($result)
-                       // {
-                          //     $succ = false;
-                         //      echo "Error";
-                                //header('Location: ../index.html');
-                                //figure out where we want to go
-                       // }
-                       // else
-                        //{
-                          //      $succ = true;
-                                //header('Location: ticketView.php');
-                       // }
-
 
 		}
 
