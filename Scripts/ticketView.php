@@ -122,7 +122,6 @@
 	<script>
         function r2()
         {
-	        alert("HEY MICHAEL");
 		var tbl = document.getElementById("originalTable");
 		tbl.sytle.display = "none";
         }
@@ -186,22 +185,27 @@
 													echo "An error occurred.\n";
 													exit;
 												}
+												$header1 = true;
 												while ($row = pg_fetch_row($result))
 												{
 													$count = count($row);
-													for($x = 0; $x < $count; $x++)
+													if($header1)
 													{
-														$columnName = pg_field_name($result, $x);
-														?>
-														<th><?php echo "$columnName"; ?></th>
-														<?php
-														if($x==$count-1)
+														for($x = 0; $x < $count; $x++)
 														{
-															?></tr><?php
-														}
-														?>
-														<?php
+															$columnName = pg_field_name($result, $x);
+															?>
+															<th><?php echo "$columnName"; ?></th>
+															<?php
+															if($x==$count-1)
+															{
+																?></tr><?php
+															}
+															?>
+															<?php
+															}
 													}
+													$header1 = false;
 													for($x = 0; $x < $count; $x++)
 													{
 														?>
@@ -238,22 +242,29 @@
                         									echo "An error occurred.\n";
                        										exit;
                										}
+											$header1 = true;
                										while ($row = pg_fetch_row($result))
                 									{
                         									$count = count($row);
-												for($x = 0; $x < $count; $x++)
-                        									{
-													$columnName = pg_field_name($result, $x);
-												?>
-													<th><?php echo "$columnName"; ?></th>
+												if($header1)
+												{
+													for($x = 0; $x < $count; $x++)
+                        										{
+														$columnName = pg_field_name($result, $x);
+														?>
+														<th><?php echo "$columnName"; ?></th>
+														<?php
+														if($x==$count-1)
+														{
+															?></tr><?php
+														}
+														?>
 													<?php
-													if($x==$count-1)
-													{
-														?></tr><?php
 													}
 													?>
 												<?php
                         									}
+												$header1 = false;
 												for($x = 0; $x < $count; $x++)
 												{
 													?>
