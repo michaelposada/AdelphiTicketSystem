@@ -119,13 +119,20 @@
 					 /* --------------------------- */
 				</style>
         </head>
+	<script>
+        function r2()
+        {
+	        alert("HEY MICHAEL");
+		var tbl = document.getElementById("originalTable");
+		tbl.sytle.display = "none";
+        }
+       </script>
 		<body>		
             <div id="view">
 				<div id="login">
-					<form action="../Scripts/register.php" method="post">
 						<p style = "font-family:georgia,garamond,serif;font-size:16px;font-style:italic;">
 							<center>
-								<?php
+									<?php
 									session_start();
 									//Connect to DB
 									$dbh = pg_connect(" dbname=postgres");
@@ -134,7 +141,7 @@
 										echo "An error occurred.\n";
 									        exit;
 									}
-									$userid = $_SESSION['userid'];
+										$userid = $_SESSION['userid'];
 									$result = pg_query($dbh, "SELECT username FROM users WHERE id = " .$userid.  "");
 								?>
 								<h1 class="title">Welcome <?php $r = pg_fetch_row($result); echo "$r[0].";?></h1>
@@ -142,10 +149,78 @@
 								<div class="row">
 									<div class="column">
 										<table style="width:70%">
-										<h2 class="title" style = "font-size:20px">Previous tickets.</h2> 
-										<input style="width: 300px;" type="text" name="search" class="ticketsearch" placeholder="Search...">
-										<input type="submit" value="&#x1F50D"> <br> <br>
-										<table>
+										<h2 class="title" style = "font-size:20px">Previous Tickets.</h2> 
+										<form method="post">
+											Tag:
+											<select name="searchTag">
+											<option value="category">Category</option>
+											<option value="description">Description</option>
+											<option value="datacreated">Date Created</option>
+											<option value="status">Status</option>
+											<option value="adminid">Admin ID</option>
+											<option value="dataresolved">Date Resolved</option>
+											</select>
+											<input style="width: 300px;" type="text" name="search" class="ticketsearch" placeholder="Search..." required>
+											<input type="submit" value="&#x1F50D" name="submitSearch" onClick="r2()"> <br> <br>
+										</form>
+										<table id="searchTable">
+                                                                                <?php
+											if(array_key_exists('submitSearch',$_POST))
+											{
+												session_start();
+												//Connect to DB
+												$dbh = pg_connect(" dbname=postgres");
+												if (!$dbh)
+												{
+													echo "An error occurred With Connecting to the Database.\n";
+													exit;
+												}
+												$userid = $_SESSION['userid'];
+												$tag = $_POST['searchTag'];
+												$search = $_POST['search'];
+												//$result = pg_query($dbh, "SELECT * FROM tickets WHERE(userid='1' AND category='link1')");
+												$result = pg_query($dbh, "SELECT * FROM tickets WHERE(userid ='".$userid."' AND ".$tag." = '".$search."')");
+												$i = pg_num_fields($result);
+												if ($result == false)
+												{
+													echo "An error occurred.\n";
+													exit;
+												}
+												while ($row = pg_fetch_row($result))
+												{
+													$count = count($row);
+													for($x = 0; $x < $count; $x++)
+													{
+														$columnName = pg_field_name($result, $x);
+														?>
+														<th><?php echo "$columnName"; ?></th>
+														<?php
+														if($x==$count-1)
+														{
+															?></tr><?php
+														}
+														?>
+														<?php
+													}
+													for($x = 0; $x < $count; $x++)
+													{
+														?>
+														<td><?php echo "$row[$x]"; ?></td>
+														<?php
+														if($x==$count-1)
+														{ 
+															?></tr><?php
+														}
+													}
+												}
+
+											}
+
+										?>
+
+
+
+										<table id="originalTable">
 										<?php
 									                session_start();
                 									//Connect to DB
@@ -198,30 +273,51 @@
 									<div class="vl"></div>
 									
 									<div class="column"> 
-										<h3 class="title" style = "font-size:20px">Create a new ticket.</h3> 
+										<h3 class="title" style = "font-size:20px">Create Ticket.</h3> 
 										<div align="left" style="padding-left: 100px">
+										<form action="addTicket.php" method="post">
+
 											Subject:		 
 											<input type="text" name="subject" class="ticketsubject" placeholder="Enter ticket subject" required><br><br>
 											Category:		 
-											<div class="dropdown">
-											  <button class="dropbtn">Default &#8628;</button>
-											  <div class="dropdown-content">
-												<a href="#">Link 1</a>
-												<a href="#">Link 2</a>
-												<a href="#">Link 3</a>
-											  </div>
-											</div>
+											  <select name="category">
+												<option value="Error with Login">Error with Login</option>
+												<option value="Connection Error">Connection Error</option>
+												<option value="Other">Other</option>
+											  </select>
+											<br> <br>
+											Description:
+										</div>
+											<textarea type="text" name="ticketdescription" placeholder="Enter ticket description" class="form-control" rows="6" cols="75" required> </textarea>
+											<br> <br>
+											<input type="submit" name="addTicket" formaction="addTicket.php" value="Confirm ticket">
+										</form>
+									<br> <br> <br>
+									
+									----------------------------------------------------------------------------------------------------------------
+									
+										<h3 class="title" style = "font-size:20px">Edit Ticket.</h3> 
+										<div align="left" style="padding-left: 100px">
+										<form action="addTicket.php" method="post">
+
+											Subject:
+											<input type="text" name="subject" class="ticketsubject" placeholder="Enter ticket subject" required><br><br>
+											Category:
+											  <select name="category">
+													<option value="Error with Login">Error with Login</option>
+													<option value="Connection Error">Connection Error</option>
+													<option value="Other">Other</option>
+											  </select>
 											<br> <br> 
-											<div>
-												Description:
-												<textarea type="text" name="ticketdescription" placeholder="Enter ticket description" class="form-control" rows="5" cols="80" required>
-												</textarea>
-											</div>
-											<br><br><br>
-										</div>									
-										<input type="submit" value="Confirm ticket">
+											Ticket ID:
+											<input type="text" name="ticketid" class="ticketsubject" placeholder="Enter Ticket ID" required><br><br>
+											Description:	
+										</div>	
+											<textarea type="text" name="ticketdescription" placeholder="Enter ticket description" class="form-control" rows="6" cols="75"> </textarea>
+											<br> <br>                                                               
+											<input type="submit" name="editTicket" formaction="addTicket.php" value="Confirm edit">							
+										</form>
 									</div>
-								</div>
 							</center> 
 						</p>
 					</form>
@@ -229,4 +325,3 @@
             </div>
 		</body>
 </html>
-
