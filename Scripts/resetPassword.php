@@ -35,9 +35,28 @@
 		UPDATE users SET password = ? WHERE username = ?");
 		$st->bindParam(2, $username);
 		$st->bindParam(1, $password);
-		$st->execute();
+		$result = $st->execute();
 
-		
+		if($result)
+		{
+			// Connect to DB
+			session_start();
+			try
+			{
+				$dbh = new PDO('pgsql:dbname=postgres');
+			} catch(PDOException $e){
+				print "Error with Database: ".$e->getMessage()."<br/>";
+				die();
+			}
+			$st = $dbh->prepare("
+			UPDATE adminm SET password = ? WHERE username = ?");
+			$st->bindParam(2, $username);
+			$st->bindParam(1, $password);
+			$st->execute();
+
+			header('Location: ../View/login.html');
+
+		}
 		header('Location: ../View/login.html');
 	}
 ?>

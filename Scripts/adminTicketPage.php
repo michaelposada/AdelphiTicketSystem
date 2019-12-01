@@ -54,7 +54,7 @@
 					  border-left: 2px solid black;
 					  height: 650px;
 					  position: absolute;
-					  left: 50%;
+					  left: 53%;
 					  margin-left: -3px;
 					  top: 50;
 					}
@@ -276,6 +276,8 @@
 										<form action="addTicket.php" method="post">
 											Subject:		 
 											<input type="text" name="subject" class="ticketsubject" placeholder="Enter ticket subject" required><br><br>
+											User ID:
+											<input type="text" name="userID" class="ticketsubject" placeholder="Enter User ID" required><br><br>
 											Category:		 
 											  <select name="category">
 												<option value="Error with Login">Error with Login</option>
@@ -287,7 +289,7 @@
 										</div>
 											<textarea type="text" name="ticketdescription" placeholder="Enter ticket description" class="form-control" rows="6" cols="75" required> </textarea>
 											<br> <br>
-											<input type="submit" name="addTicket" formaction="addTicket.php" value="Confirm ticket">
+											<input type="submit" name="addTicket2" formaction="addTicket.php" value="Confirm ticket">
 										</form>
 									<br> <br> <br>
 									

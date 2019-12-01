@@ -55,7 +55,7 @@
 					  border-left: 2px solid black;
 					  height: 650px;
 					  position: absolute;
-					  left: 50%;
+					  left: 51%;
 					  margin-left: -3px;
 					  top: 50;
 					}
@@ -209,7 +209,7 @@
 													for($x = 0; $x < $count; $x++)
 													{
 														?>
-														<td><?php echo "$row[$x]"; ?></td>
+														<br><td><?php echo "$row[$x]"; ?></td>
 														<?php
 														if($x==$count-1)
 														{ 
@@ -268,7 +268,7 @@
 												for($x = 0; $x < $count; $x++)
 												{
 													?>
-													<td><?php echo "$row[$x]"; ?></td>
+													<td><?php echo "$row[$x]"; ?><br></td>
 													<?php
 													if($x==$count-1)
                                                                                                         { 

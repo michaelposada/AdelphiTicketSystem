@@ -41,7 +41,7 @@
 		$result = $st->fetch();
 		$_SESSION['userid'] = $result[0];
 		$successful = false;
-		if($result[0] == null)
+		if($result[0] === null)
 		{
 			//header('Location: ../index.html');
 			//figure out where we want to go
@@ -61,7 +61,7 @@
                 	}
 			else	{
 				echo "Worked";
-				//header('Location: adminTicketPage');
+				header('Location: adminTicketPage.php');
 			}
 		}
 		else
